@@ -24,12 +24,13 @@ export class Calc extends Component {
             minusToRolls: 0,
         }
 
+        this.averageRoll = 0;
+
         this.probabilities = {
             probability: 0,
             probabilityWithRaise1: 0,
             probabilityWithRaise2: 0,
-            probabilityWithRaise3: 0,
-            probabilityWithRaise4: 0
+            probabilityWithRaise3: 0
         }
     }
 
@@ -39,11 +40,16 @@ export class Calc extends Component {
         for (let i = 0; i < this.state.rolls; i++) {
             const rolledNumbers = this.prepareFirstNumbers();
             const endNumbers = this.getHighestNumbers(rolledNumbers);
-
             this.state.results.push(endNumbers.reduce((a, b) => a + b, 0))
         }
 
+        this.averageRoll = this.state.results.length ? this.getAverageValue(this.state.results) / this.state.results.length : 0
+
         this.calcTn()
+    }
+
+    getAverageValue = (array) => {
+        return array.reduce((prev, curr) => curr += prev)
     }
 
     clearState = () => {
@@ -53,9 +59,10 @@ export class Calc extends Component {
             probability: 0,
             probabilityWithRaise1: 0,
             probabilityWithRaise2: 0,
-            probabilityWithRaise3: 0,
-            probabilityWithRaise4: 0
+            probabilityWithRaise3: 0
         }
+
+        this.averageRoll = 0;
     }
 
     calcTn = () => {
@@ -64,7 +71,6 @@ export class Calc extends Component {
             this.checkProbability("probabilityWithRaise1", element, 5)
             this.checkProbability("probabilityWithRaise2", element, 10)
             this.checkProbability("probabilityWithRaise3", element, 15)
-            this.checkProbability("probabilityWithRaise4", element, 20)
         });
     }
 
@@ -237,9 +243,15 @@ export class Calc extends Component {
                         />
                     </div>
                 </form>
+                <Button className="button" variant="contained" color="primary" onClick={this.doMagic}>
+                    Przerzuć kości
+                </Button>
                 <Typography variant="subtitle1">
                     <Grid xs={12} item container direction="row">
                         <Grid xs={6} item container direction="column">
+                            <p>
+                                Średni rzut:
+                            </p>
                             <p>
                                 TN {this.state.tnNumber} (0 raise):
                             </p>
@@ -252,11 +264,11 @@ export class Calc extends Component {
                             <p>
                                 TN {this.state.tnNumber * 1 + 15} (3 raise):
                             </p>
-                            <p>
-                                TN {this.state.tnNumber * 1 + 20} (4 raise):
-                            </p>
                         </Grid>
                         <Grid xs={6} item container direction="column">
+                            <p>
+                                {Math.round(this.averageRoll)}
+                            </p>
                             <p>
                                 {Math.round(this.probabilities.probability / this.state.rolls * 100)}%
                             </p>
@@ -268,9 +280,6 @@ export class Calc extends Component {
                             </p>
                             <p>
                                 {Math.round(this.probabilities.probabilityWithRaise3 / this.state.rolls * 100)}%
-                            </p>
-                            <p>
-                                {Math.round(this.probabilities.probabilityWithRaise4 / this.state.rolls * 100)}%
                             </p>
                         </Grid>
                     </Grid>
