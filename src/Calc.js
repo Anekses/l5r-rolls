@@ -40,7 +40,7 @@ export class Calc extends Component {
         for (let i = 0; i < this.state.rolls; i++) {
             const rolledNumbers = this.prepareFirstNumbers();
             const endNumbers = this.getHighestNumbers(rolledNumbers);
-            this.state.results.push(endNumbers.reduce((a, b) => a + b, 0 - this.state.minusToRolls * 1))
+            this.state.results.push(endNumbers.reduce((a, b) => a + b, 0 - this.state.minusToRolls * 1 + this.state.addtionalModificator * 1))
         }
 
         this.averageRoll = this.state.results.length ? this.getAverageValue(this.state.results) / this.state.results.length : 0
@@ -120,9 +120,9 @@ export class Calc extends Component {
 
         this.setState({
             [name]: value
+        }, () => {
+            this.doMagic()
         });
-
-        this.doMagic()
     }
 
     componentDidMount() {
