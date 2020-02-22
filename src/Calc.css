@@ -1,0 +1,21 @@
+input {
+    text-align: center;
+}
+
+form {
+    margin-bottom: 16px;
+}
+
+.input {
+    width: 80px;
+}
+
+.bigInput {
+    width: 160px;
+}
+
+.text {
+    font-size: 18px;
+    margin-top: 20px;
+    display: inline-block;
+}
