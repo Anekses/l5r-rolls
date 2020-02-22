@@ -9,8 +9,8 @@ export class Calc extends Component {
         super(props);
 
         this.state = {
-            firstNumber: 1,
-            secondNumber: 1,
+            firstNumber: 0,
+            secondNumber: 0,
             addtionalModificator: 0,
             tnNumber: 0,
             nineExplode: false,
@@ -115,6 +115,12 @@ export class Calc extends Component {
         this.setState({
             [name]: value
         });
+
+        this.doMagic()
+    }
+
+    componentDidMount() {
+        this.doMagic()
     }
 
     render() {
@@ -231,27 +237,23 @@ export class Calc extends Component {
                         />
                     </div>
                 </form>
-                <Button className="button" variant="contained" color="primary" onClick={this.doMagic}>
-                    Wylicz
-                </Button>
-
                 <Typography variant="subtitle1">
                     <Grid xs={12} item container direction="row">
                         <Grid xs={6} item container direction="column">
                             <p>
-                                TN {this.state.tnNumber}:
+                                TN {this.state.tnNumber} (0 raise):
                             </p>
                             <p>
-                                TN {this.state.tnNumber * 1 + 5}:
+                                TN {this.state.tnNumber * 1 + 5} (1 raise):
                             </p>
                             <p>
-                                TN {this.state.tnNumber * 1 + 10}:
+                                TN {this.state.tnNumber * 1 + 10} (2 raise):
                             </p>
                             <p>
-                                TN {this.state.tnNumber * 1 + 15}:
+                                TN {this.state.tnNumber * 1 + 15} (3 raise):
                             </p>
                             <p>
-                                TN {this.state.tnNumber * 1 + 20}:
+                                TN {this.state.tnNumber * 1 + 20} (4 raise):
                             </p>
                         </Grid>
                         <Grid xs={6} item container direction="column">
